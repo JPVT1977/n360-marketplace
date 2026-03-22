@@ -1,0 +1,9 @@
+{
+  "name": "n360-app-release",
+  "description": "Comprehensive mobile app release testing protocol with 19 verification phases, priority classification (P0-P3), and failure protocols. Covers API health, auth flows, emergency paths, offline resilience, security, compliance, and post-deploy verification. Built for App Store and Play Store submissions.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nucleus360",
+    "url": "https://nucleus360.com.au"
+  }
+}

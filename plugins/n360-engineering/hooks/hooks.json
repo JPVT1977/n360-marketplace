@@ -1,0 +1,6 @@
+[
+  {
+    "type": "session-start",
+    "command": "bash hooks/session-start.sh"
+  }
+]

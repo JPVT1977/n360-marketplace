@@ -1,0 +1,51 @@
+{
+  "name": "n360-marketplace",
+  "owner": {
+    "name": "Nucleus360",
+    "email": "dev@nucleus360.com.au"
+  },
+  "metadata": {
+    "description": "Production-grade engineering standards and release protocols for teams building safety-critical applications. By Nucleus360.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "n360-engineering",
+      "source": "./plugins/n360-engineering",
+      "description": "Zero-defect engineering standard for Claude Code. Enforces session discipline, TDD, structured investigation, circuit breakers, security baselines, performance targets, rollback playbooks, and observability. Built for teams where code quality is non-negotiable.",
+      "homepage": "https://github.com/JPVT1977/n360-marketplace",
+      "category": "productivity",
+      "keywords": [
+        "engineering",
+        "standards",
+        "tdd",
+        "security",
+        "quality",
+        "safety-critical",
+        "best-practices",
+        "workflows",
+        "code-review",
+        "devops"
+      ]
+    },
+    {
+      "name": "n360-app-release",
+      "source": "./plugins/n360-app-release",
+      "description": "Comprehensive mobile app release testing protocol with 19 verification phases, priority classification (P0-P3), and failure protocols. Covers API health, auth flows, SOS/emergency paths, offline resilience, security, compliance, and post-deploy verification. Built for App Store and Play Store submissions.",
+      "homepage": "https://github.com/JPVT1977/n360-marketplace",
+      "category": "productivity",
+      "keywords": [
+        "testing",
+        "mobile",
+        "app-store",
+        "play-store",
+        "release",
+        "qa",
+        "safety-critical",
+        "flutter",
+        "ios",
+        "android"
+      ]
+    }
+  ]
+}

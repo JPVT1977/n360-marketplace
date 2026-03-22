@@ -1,0 +1,9 @@
+{
+  "name": "n360-engineering",
+  "description": "Zero-defect engineering standard for Claude Code. Session discipline, TDD, investigation protocol, circuit breakers, security baselines, performance targets, rollback playbooks, and observability. Built for teams where code quality is non-negotiable.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nucleus360",
+    "url": "https://nucleus360.com.au"
+  }
+}
