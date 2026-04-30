@@ -1,0 +1,135 @@
+# Nucleus360 gitleaks configuration
+# Inherits the gitleaks default ruleset and adds Nucleus360-specific patterns
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "n360-fly-token"
+description = "Fly.io deploy or auth token"
+regex = '''(?i)fly[a-z0-9_-]*token[\"'\s:=]+[A-Za-z0-9_\-\.]{40,}'''
+tags = ["nucleus360", "secret"]
+
+[[rules]]
+id = "n360-oanda-key"
+description = "OANDA broker API key"
+regex = '''(?i)oanda[a-z0-9_-]*(?:key|token|secret)[\"'\s:=]+[A-Za-z0-9_\-]{32,}'''
+tags = ["nucleus360", "broker"]
+
+[[rules]]
+id = "n360-ig-markets-key"
+description = "IG Markets API key"
+regex = '''(?i)ig[_-]?markets[a-z0-9_-]*(?:key|token|secret)[\"'\s:=]+[A-Za-z0-9_\-]{20,}'''
+tags = ["nucleus360", "broker"]
+
+[[rules]]
+id = "n360-binance-key"
+description = "Binance API key"
+regex = '''(?i)binance[a-z0-9_-]*(?:key|secret)[\"'\s:=]+[A-Za-z0-9_\-]{40,}'''
+tags = ["nucleus360", "broker"]
+
+[[rules]]
+id = "n360-netcash-cred"
+description = "Netcash credentials"
+regex = '''(?i)netcash[a-z0-9_-]*(?:key|password|token|service)[\"'\s:=]+[A-Za-z0-9_\-]{20,}'''
+tags = ["nucleus360", "payment"]
+
+[[rules]]
+id = "n360-livekit-secret"
+description = "LiveKit API secret"
+regex = '''(?i)livekit[a-z0-9_-]*secret[\"'\s:=]+[A-Za-z0-9_\-]{32,}'''
+tags = ["nucleus360", "livekit"]
+
+[[rules]]
+id = "n360-twilio-token"
+description = "Twilio auth token"
+regex = '''(?i)twilio[a-z0-9_-]*(?:token|sid)[\"'\s:=]+[A-Za-z0-9]{32,}'''
+tags = ["nucleus360", "twilio"]
+
+[allowlist]
+description = "Files and paths to ignore"
+paths = [
+  '''(.*?)\.env\.example$''',
+  '''(.*?)\.env\.template$''',
+  '''(.*?)\.env\.sample$''',
+  '''(.*?)/test/fixtures/.*''',
+  '''(.*?)/tests?/fixtures/.*''',
+  '''(.*?)/__tests__/fixtures/.*''',
+  '''(.*?)\.lock$''',
+  '''(.*?)package-lock\.json$''',
+  '''(.*?)pnpm-lock\.yaml$''',
+  '''(.*?)pubspec\.lock$'''
+]
+
+[[allowlists]]
+description = "Google Maps client-side keys (referrer-restricted in GCP Console)"
+paths = [
+  '''(.*?)[Mm]aps[Cc]onfig\.(ts|js|tsx|jsx)$''',
+  '''(.*?)googleMaps\.(ts|js|tsx|jsx)$''',
+  '''(.*?)fly\.toml$''',
+]
+regexes = [
+  '''AIzaSy[A-Za-z0-9_-]{33}'''
+]
+
+[[allowlists]]
+description = "Firebase API keys (designed to be public, security via Firebase Security Rules)"
+paths = [
+  '''(.*?)firebase_options\.dart$''',
+  '''(.*?)google-services\.json$''',
+  '''(.*?)GoogleService-Info\.plist$''',
+  '''(.*?)AndroidManifest\.xml$''',
+  '''(.*?)AppDelegate\.swift$''',
+  '''(.*?)constants\.dart$''',
+  '''(.*?)Dockerfile$''',
+  '''(.*?)next\.config\.(js|ts|mjs)$''',
+]
+regexes = [
+  '''AIzaSy[A-Za-z0-9_-]{33}''',
+]
+
+[[allowlists]]
+description = "Test fixtures and placeholder values"
+paths = [
+  '''(.*?)/test/.*''',
+  '''(.*?)/tests?/.*''',
+  '''(.*?)/__tests__/.*''',
+  '''(.*?)test_.*\.dart$''',
+  '''(.*?)\.test\.(ts|js|tsx|jsx|dart)$''',
+  '''(.*?)\.spec\.(ts|js|tsx|jsx)$''',
+  '''(.*?)env-setup\.(ts|js)$''',
+]
+regexes = [
+  '''sk_test_[A-Za-z0-9]+''',
+  '''test-[A-Za-z0-9_-]+''',
+  '''AbCdEf0123456789[A-Za-z0-9_-]*''',
+  '''placeholder''',
+]
+
+[[allowlists]]
+description = "Lock files, checksums, and documentation"
+paths = [
+  '''(.*?)Podfile\.lock$''',
+  '''(.*?)package-lock\.json$''',
+  '''(.*?)pnpm-lock\.yaml$''',
+  '''(.*?)pubspec\.lock$''',
+  '''(.*?)Cargo\.lock$''',
+  '''(.*?)\.md$''',
+  '''(.*?)tasks/.*''',
+  '''(.*?)docs/.*''',
+  '''(.*?)PROGRESS\.md$''',
+]
+
+[[allowlists]]
+description = "Netcash documented test/sandbox vendor key (publicly known)"
+regexes = [
+  '''24ade73c-98cf-47b3-99be-cc7b867b3080''',
+]
+
+[[allowlists]]
+description = "JP accepted risk 30-Apr-2026: hardcoded fallbacks in private repos, no rotation"
+regexes = [
+  '''GA-PROD-INGEST-2025-PRIMARY''',
+  '''rco_8c1132e98be7fa99''',
+  '''e5a2ca1d841f201420fd9f14900ed1d19aa01ecb06b3bbde6179ec61dce63eb5''',
+]

@@ -1,0 +1,47 @@
+# Nucleus360 Semgrep ruleset
+# Custom rules layered on top of Semgrep registry
+
+rules:
+  - id: n360-no-hardcoded-secret
+    pattern-either:
+      - pattern: |
+          $VAR = "AKIA..."
+      - pattern: |
+          $VAR = "ghp_..."
+      - pattern: |
+          $VAR = "sk-..."
+      - pattern: |
+          $VAR = "sk-ant-..."
+    message: |
+      Hardcoded credential pattern detected. Move to a secret manager
+      (1Password, Fly secrets, AWS Secrets Manager).
+    severity: ERROR
+    languages: [generic]
+
+  - id: n360-no-console-credential-log
+    patterns:
+      - pattern-either:
+          - pattern: console.log($X, ..., $TOKEN, ...)
+          - pattern: console.error($X, ..., $TOKEN, ...)
+      - metavariable-regex:
+          metavariable: $TOKEN
+          regex: "(?i)(password|secret|token|api[_-]?key|bearer)"
+    message: |
+      Logging a credential-like value to console. Remove or redact.
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  - id: n360-no-disable-tls
+    pattern-either:
+      - pattern: |
+          rejectUnauthorized: false
+      - pattern: |
+          NODE_TLS_REJECT_UNAUTHORIZED = 0
+      - pattern: |
+          verify=False
+    message: |
+      TLS verification disabled. This must never be done in production.
+      If required for a self-signed certificate in development, scope the
+      change to a non-production environment only.
+    severity: ERROR
+    languages: [javascript, typescript, python]
